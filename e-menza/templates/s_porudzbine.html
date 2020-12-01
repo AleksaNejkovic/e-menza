@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block title %}Vaše porudžbine{% endblock %}
+
+
+{% block content%}
+
+<nav class="navbar navbar-expand-lg navbar-light bg-transparent">
+	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+	<span class="navbar-toggler-icon"></span>
+	</button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item dropdown">
+                    <a class="nav-link" href="{{url_for('Restorani')}}" style="color: #000000; font-size: 20px;" role="button" aria-haspopup="true" aria-expanded="false">Restorani</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{url_for('Racun')}}" style="color: #000000;  font-size: 20px;">Račun</a>
+                </li>
+                 <li class="nav-item">
+                    <a class="nav-link" href="{{url_for('S_porudzbine')}}" style="color: #008ae6; font-weight: bold; font-size: 20px;">Vaše porudžbine</a>
+                </li>
+            </ul>
+            <div class="text-right">
+               <a href="{{url_for('Logout')}}" class="icon-btn"  role="button"><b style=" font-size:19px; color: #008ae6;">Odjavi se</b></a>
+            </div>
+        </div>
+</nav>
+
+ <section class="my-5 py-5">
+        <div class="container">
+            <div class='row d-flex justify-content-center'>
+               
+                   <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Naziv restorana</th>
+                                <th scope="col">Obrok</th>
+                                <th scope="col">Student</th>
+                                <th scope="col">Datum</th>
+                                <th scope="col">Vreme</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for s_porudzbina in s_porudzbina %}
+                            <tr>
+                                <td>{{s_porudzbina.nazivRestorana}}</td>
+                                <td>{{s_porudzbina.nazivObroka}}</td>
+                                <td>{{s_porudzbina.ime_p_s}}</td>
+                                <td>{{s_porudzbina.datum}}</td>
+                                <td>{{s_porudzbina.vreme}}</td>
+                               
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+        </div>
+    </section>
+
+
+
+{% endblock %}

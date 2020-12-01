@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block title %}Vaše porudžbine{% endblock %}
+
+
+{% block content%}
+
+<nav class="navbar navbar-expand-lg navbar-light bg-transparent">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+    </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="{{url_for('Admin_Studenti')}}" style="color: #000000; font-size: 20px;">Studenti</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{url_for('Admin_Restorani')}}"  style="color: #000000; font-size: 20px;">Restorani</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{url_for('Admin_Obroci')}}" style="color: #000000; font-size: 20px;">Obroci</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{url_for('Admin_Banke')}}" style="color: #000000; 
+                    font-size: 20px;">Banke</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{url_for('A_porudzbine')}}" style="color: #008ae6; font-weight: bold;  font-size: 20px;">Porudžbine</a>
+                </li>
+            </ul>
+            <div class="text-right">
+               <a href="{{url_for('Logout_Admin')}}" class="icon-btn"  role="button"><b style=" font-size:19px; color: #008ae6;">Odjavi se</b></a>
+            </div>
+        </div>
+    </nav>
+
+ <section class="my-5 py-5">
+        <div class="container">
+            <div class='row d-flex justify-content-center'>
+                   <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Naziv restorana</th>
+                                <th scope="col">Obrok</th>
+                                <th scope="col">Student</th>
+                                <th scope="col">Datum</th>
+                                <th scope="col">Vreme</th>
+                                <th scope="col" style="text-align: center;">Reši porudžbinu</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for a_porudzbina in a_porudzbina %}
+                            <tr>
+                                <td>{{a_porudzbina.nazivRestorana}}</td>
+                                <td>{{a_porudzbina.nazivObroka}}</td>
+                                <td>{{a_porudzbina.ime_p_s}}</td>
+                                <td>{{a_porudzbina.datum}}</td>
+                                <td>{{a_porudzbina.vreme}}</td>
+                                <td style="text-align: center;">
+                                    <a href="/a_porudzbine_brisanje/{{a_porudzbina.id}}" onclick="return confirm('Da li ste sigurni da želite da obrišete navedenu porudžbinu?')" class="icon-btn text-danger" role="button"><i class="fas fa-trash-alt"></i></a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+        </div>
+    </section>
+
+
+
+{% endblock %}

@@ -1,0 +1,101 @@
+#navbardrop{
+  color: #008ae6;
+  font-weight: bold;
+  font-size:20px;
+  outline: none;
+  text-shadow: transparent;
+  text-decoration:none;
+  background: none;
+}
+
+#navbardrop:hover{
+  color: #000000;
+  outline: none;
+  text-shadow: transparent;
+  text-decoration:none;
+  background: none;
+}
+
+.dropdown-item{
+  color: #000000;
+  outline: none;
+  text-shadow: transparent;
+  text-decoration:none;
+  background: none;
+}
+.dropdown-item:hover{
+  color: #000000;
+  font-weight: bold;
+  outline: none;
+  text-shadow: transparent;
+  text-decoration:none;
+  background: none;
+}
+
+.navbar .navbar-collapse .text-right {
+  text-align:left !important;
+}
+
+.poruci{
+  color: black;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.poruci:hover{
+  font-weight: bold;
+  color: #008ae6;
+  text-decoration: none;
+}
+
+.close{
+    text-decoration: none !important;
+    outline-style: none !important;
+}
+
+.btn{
+  border-radius: 3px;
+}
+
+.btn:focus {
+  text-decoration: none !important;
+  outline-style: none !important;
+}
+
+.btn:hover{
+  text-decoration: none !important;
+  outline-style: none !important;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="password"],
+input[type=date],
+input[type=time],
+select
+{
+    background: none;
+    border: 1px solid !important;
+    width: 100%;
+    outline: none !important;
+    height: 40px;
+    color: black;
+    border-radius: 3px;
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus,
+input[type="password"]:focus,
+input[type=date]:focus,
+input[type=time]:focus,
+select:focus {
+    outline: none !important;
+    text-decoration: none;
+    border: 1px solid !important;
+    color: black;
+    border-radius: 3px;
+}
+
+.form-control{
+  border-radius: 3px;
+}

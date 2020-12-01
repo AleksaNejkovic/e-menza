@@ -1,0 +1,186 @@
+{% extends 'base.html' %}
+
+{% block title %}Administrator - Obroci{% endblock %}
+
+{% block content%}
+
+<nav class="navbar navbar-expand-lg navbar-light bg-transparent">
+	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+	<span class="navbar-toggler-icon"></span>
+	</button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="{{url_for('Admin_Studenti')}}" style="color: #000000;  font-size: 20px;">Studenti</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{url_for('Admin_Restorani')}}" style="color: #000000;  font-size: 20px;">Restorani</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{url_for('Admin_Obroci')}}" style="color: #008ae6; font-weight: bold; 
+                    font-size: 20px;">Obroci</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{url_for('Admin_Banke')}}" style="color: #000000;  font-size: 20px;">Banke</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{url_for('A_porudzbine')}}" style="color: #000000; font-size: 20px;">Porudžbine</a>
+                </li>
+            </ul>
+            <div class="text-right">
+               <a href="{{url_for('Logout_Admin')}}" class="icon-btn"  role="button"><b style=" font-size:19px; color: #008ae6;">Odjavi se</b></a>
+            </div>
+        </div>
+    </nav>
+
+    
+    <section class="py-5">
+        <div class="container">
+            <div class='row justify-content-end my-5'>
+              <a class="btn btn-primary text-white btn-dodaj" data-toggle="modal" data-target="#modalnew" role="button">Dodaj obrok</a>
+            </div>
+              {%with messages = get_flashed_messages()%}
+              {%if messages%}
+              {% for message in messages %}
+              <div class="alert alert-success alert-dismissable" role="alert">
+                  <button type="button" class="close" data-dismiss="alert" aria-label ="close">
+                      <span aria-hidden="true">&times;</span>
+                  </button>
+                  <center>{{message}}</center>
+              </div>
+              {%endfor%}
+              {%endif%}
+              {%endwith%}
+            <div class='row d-flex justify-content-center'>
+                   <table class="table">
+                        <thead>
+                            <tr>
+                            	<th scope="col">Naziv jela</th>
+                                <th scope="col">Sastav</th>
+                                <th scope="col">Nutritivna vrednost</th>
+                                <th scope="col">Cena</th>
+                                <th scope="col">Akcije</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                          {% for obrok in obroci %}
+                            <tr>
+                                <td>{{obrok.naziv}}</td>
+                                
+                                <td>{{obrok.sastav}}</td>
+                                <td>{{obrok.nutritivna_vrednost}}</td>
+                                <td>{{obrok.cena}}</td>
+                                <td>
+                                    <a href="/a_obrok_izmena/{{obrok.id}}" class="icon-btn text-warning" data-toggle="modal" data-target="#modaledit{{obrok.id}}" role="button"><i class="fas fa-edit"></i></a>
+                                    &nbsp;
+                                    <a href="/a_obrok_brisanje/{{obrok.id}}" onclick="return confirm('Da li ste sigurni da želite da obrišete navedeni obrok?')" class="icon-btn text-danger" role="button"><i class="fas fa-trash-alt"></i></a>
+                                </td>
+                            </tr>
+                           				<!--  Izmena obroka -->
+                           				
+                            <div id="modaledit{{obrok.id}}" class="modal fade" role="dialog">
+                              <div class="modal-dialog">
+                                <div class="modal-content">
+                                  <!-- Modal Header -->
+                                  <div class="modal-header">
+                                    <h4 class="modal-title">Obrok - izmena</h4>
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                  </div>
+                                  <!-- Modal body -->
+                                  <div class="modal-body">
+                                    <form action="{{url_for(('Admin_Obrok_Izmena'))}}" method="POST">
+                                      <div class="form-group">
+                                      <label>Naziv jela</label>
+                                         <input type="hidden" name="id" value="{{obrok.id}}">
+                                         <input type="text" class="form-control" name="naziv" 
+                                         value="{{obrok.naziv}}">
+                                      </div>
+                                    <!--   <div class="form-group">
+                                      <label>Vrsta jela</label>
+                                             <select name="vrsta_obroka">
+                                                 <option value="{{obrok.vrsta_obroka}}">{{obrok.v_o}}</option>
+                                               {%for VrstaObrokaIzmena in VrstaObrokaIzmena%}
+                                                 <option value="{{VrstaObrokaIzmena.id}}">{{VrstaObrokaIzmena.naziv}}</option>
+                                               {%endfor%}
+                                             </select>
+                                      </div> -->
+                                      <div class="form-group">
+                                      <label>Sastav</label>
+                                          <input type="text" class="form-control" name="sastav" value="{{obrok.sastav}}">
+                                      </div>
+                                      <div class="form-group">
+                                      <label>Nutritivna vrednost</label>
+                                          <input type="text" class="form-control" name="nutritivna_vrednost" 
+                                          value="{{obrok.nutritivna_vrednost}}">
+                                      </div>
+                                      <div class="form-group">
+                                      	<label>Cena</label>
+                                          <input type="number" class="form-control" name="cena" value="{{obrok.cena}}">
+                                      </div>
+                                      <input type="submit" class="btn btn-primary text-white" value="Sačuvaj">
+                                    </form>
+                                  </div>
+                                <!-- Modal footer -->
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-default" data-dismiss="modal">Otkaži</button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+        </div>
+    </section>
+
+<!-- Dodavanje novog obroka -->
+
+ <div id="modalnew" class="modal fade" role="dialog">
+   <div class="modal-dialog">
+     <div class="modal-content">
+       <!-- Modal Header -->
+       <div class="modal-header">
+         <h4 class="modal-title">Novi obrok</h4>
+         <button type="button" class="close" data-dismiss="modal">&times;</button>
+       </div>
+       <!-- Modal body -->
+       <div class="modal-body">
+        <form action="{{url_for(('Admin_Novi_Obrok'))}}" method="POST">
+           <div class="form-group">
+           <label>Naziv jela</label>
+              <input type="text" class="form-control" name="naziv">
+           </div>
+          <!--  <div class="form-group">
+           <label>Vrsta obroka</label>
+              
+                <select name="vrsta_obroka">
+                {%for vrstaObroka in vrstaObroka%}
+                  <option value="{{vrstaObroka.id}}">{{vrstaObroka.naziv}}</option>
+                {%endfor%}
+              </select>
+           </div> -->
+           <div class="form-group">
+           <label>Sastav</label>
+               <input type="text" class="form-control" name="sastav">
+           </div>
+           <div class="form-group">
+           <label>Nutritivna vrednost</label>
+               <input type="text" class="form-control" name="nutritivna_vrednost">
+           </div>
+           <div class="form-group">
+           <label>Cena</label>
+               <input type="number" class="form-control" name="cena">
+           </div>
+          <input type="submit" class="btn btn-primary text-white" value="Sačuvaj">
+       </form>
+       </div>
+     <!-- Modal footer -->
+     <div class="modal-footer">
+       <button type="button" class="btn btn-default" data-dismiss="modal">Otkaži</button>
+     </div>
+   </div>
+ </div>
+</div>
+
+{% endblock %}

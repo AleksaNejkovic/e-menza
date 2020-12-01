@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% block title %}Porudžbine{% endblock %}
+
+
+{% block content%}
+
+<section class="py-4">
+    <div class="container" style="border: 1px solid; width: 480px;">
+        <a href="/restorani"><i class="fas fa-arrow-left" style="margin-top: 10px; font-size: 28px;"></i></a>
+        <h5 style="text-align: center;">Poručivanje - Linijski restoran {{restorani.id}}</h5>
+		<form action="" method="POST"><br/>
+         	 <table class="table" style="margin-bottom: 0px !important;">
+             	<tbody>
+             		<tr>
+             			<td class="text-left">Restoran:</td>
+             			<td class="text-right">
+                            <input type="text" name="restorani_id" value="{{restorani.naziv_objekta}}" style="width: 250px; height: 30px;" readonly>
+             			</td>
+             		</tr>
+             		<tr>
+                        <td class="text-left">Obrok:</td>
+                        <td class="text-right">
+                            <select name="obrokid" style="width: 250px; height: 30px;">
+                                {%for obroci in obroci%}
+                                    <option value="{{obroci.id}}">Naziv: {{obroci.naziv}} | Cena: {{obroci.cena}}</option>  
+                                {%endfor%}
+                            </select>
+                        </td>
+                    </tr>
+                   
+             		<tr>
+             			<td class="text-left">Datum:</td>
+             			<td class="text-right">
+             				<input type="date" name="datum" style="width: 250px; height: 30px;" required>
+             			</td>
+             		</tr>
+             		<tr>
+             			<td class="text-left">Vreme:</td>
+             			<td class="text-right">
+             				<input type="time" name="vreme" min="07:00 AM" max="08:00 PM" style="width: 250px; height: 30px;" required>
+             			</td>
+             		</tr>
+             		<tr>
+             			<td class="text-left">Banka: </td>
+             			<td class="text-right">
+             				<input type="text" value="{{banka.nazivbanke}}" style="width: 250px; height: 30px;" readonly>
+             			</td>
+             		</tr>
+             		<!-- <tr>
+             			<td colspan="2" align="center">Ukupna cena izabranog obroka je <b></b> RSD.</td>
+             		</tr>
+ -->
+             		<tr>
+             			<td colspan="2" align="center">
+             				<input type="submit" style="width: 100%; height: 45px;" class="btn btn-primary text-white" value="Poruči">
+             			</td>
+             		</tr>
+             	</tbody>
+             </table>
+    	</form>
+	</div>
+</section>
+
+
+
+{% endblock %}
